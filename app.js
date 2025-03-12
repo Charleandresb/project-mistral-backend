@@ -13,7 +13,15 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-const allowedCors = ["http://localhost:4000"];
+const allowedCors = [
+  "https://libreriamistral.jumpingcrab.com",
+  "http://libreriamistral.jumpingcrab.com",
+  "https://www.libreriamistral.jumpingcrab.com",
+  "http://www.libreriamistral.jumpingcrab.com",
+  "https://api.libreriamistral.jumpingcrab.com",
+  "http://api.libreriamistral.jumpingcrab.com",
+  "http://localhost:4000",
+];
 
 app.use(function (req, res, next) {
   const { origin } = req.headers;
