@@ -13,7 +13,12 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-const allowedCors = ["http://localhost:5173", "http://200.83.23.180"];
+const allowedCors = [
+  "http://localhost:4000",
+  "http://200.83.23.180",
+  "https://libreriamistral.vercel.app",
+  "https://mistralapi.vercel.app",
+];
 
 app.use(function (req, res, next) {
   const { origin } = req.headers;
