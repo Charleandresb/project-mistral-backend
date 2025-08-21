@@ -13,15 +13,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-const allowedCors = [
-  "https://libreriamistral.jumpingcrab.com",
-  "http://libreriamistral.jumpingcrab.com",
-  "https://www.libreriamistral.jumpingcrab.com",
-  "http://www.libreriamistral.jumpingcrab.com",
-  "https://api.libreriamistral.jumpingcrab.com",
-  "http://api.libreriamistral.jumpingcrab.com",
-  "http://localhost:4000",
-];
+const allowedCors = ["http://localhost:5173", "http://200.83.23.180"];
 
 app.use(function (req, res, next) {
   const { origin } = req.headers;
@@ -44,7 +36,9 @@ app.use(function (req, res, next) {
 });
 
 mongoose
-  .connect(process.env.DIRECT_MISTRAL_MONGODB_ATLAS)
+  .connect(process.env.DIRECT_MISTRAL_MONGODB_ATLAS, {
+    serverSelectionTimeoutMS: 30000,
+  })
   .then(() => {
     console.log("Conectado a la base de datos");
   })
@@ -101,12 +95,11 @@ app.use((err, req, res, next) => {
   console.log(err);
   const { statusCode = 500, message } = err;
 
-  res.status(statusCode).send({
-    message:
-      statusCode === 500 ? "Ha ocurrido un error en el servidor" : message,
-  });
+  res.status(statusCode).send({ message: message });
 });
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
+
+export default app;
